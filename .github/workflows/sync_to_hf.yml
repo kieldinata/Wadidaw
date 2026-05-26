@@ -22,4 +22,5 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git remote add space https://username:$HF_TOKEN@huggingface.co/spaces/kieldinata/Wadidaw
-          git push --force space main
+          # Tambahkan opsi --push-option=nobinary di akhir perintah push
+          git push --force space $CURRENT_BRANCH:main --push-option=nobinary
