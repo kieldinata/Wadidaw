@@ -26,7 +26,7 @@ public class MovieDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idParam = request.getParameter("id");
-        String TMDBKey = System.getenv(TMDB_API_KEY);
+        String TMDBKey = System.getenv("TMDB_API_KEY");
         if (idParam == null || TMDBKey == null) {
             response.sendRedirect("search");
             return;
