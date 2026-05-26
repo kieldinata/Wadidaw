@@ -1,0 +1,25 @@
+name: Sync to Hugging Face Spaces
+
+on:
+  push:
+    branches: [ main ] # Ganti 'main' jika branch utama kamu namanya 'master'
+
+  # Izinkan menjalankan workflow ini secara manual dari tab Actions
+  workflow_dispatch:
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Push to HF
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git remote add space https://username:$HF_TOKEN@huggingface.co/spaces/kieldinata/Wadidaw
+          git push --force space main
