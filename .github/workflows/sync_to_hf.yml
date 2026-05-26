@@ -2,10 +2,10 @@ name: Sync to Hugging Face Spaces
 
 on:
   push:
-    branches: [ main ] # Ganti 'main' jika branch utama kamu namanya 'master'
+    branches:
+      - '**' # Memicu workflow di branch mana pun saat kamu melakukan push
 
-  # Izinkan menjalankan workflow ini secara manual dari tab Actions
-  workflow_dispatch:
+  workflow_dispatch: # Memungkinkan kamu menjalankan workflow secara manual jika dibutuhkan
 
 jobs:
   sync-to-hub:
@@ -21,6 +21,11 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git remote add space https://username:$HF_TOKEN@huggingface.co/spaces/kieldinata/Wadidaw
-          # Tambahkan opsi --push-option=nobinary di akhir perintah push
-          git push --force space $CURRENT_BRANCH:main --push-option=nobinary
+          # 1. Daftarkan remote Hugging Face Space Wadidaw
+          git remote add space https://kieldinata:$HF_TOKEN@huggingface.co/spaces/kieldinata/Wadidaw
+          
+          # 2. Buat branch lokal sementara agar tidak memicu error proteksi penghapusan branch di HF
+          git checkout -b hf-sync-branch
+          
+          # 3. Push ke Hugging Face dengan opsi meloloskan gambar logo Wadidaw (.png)
+          git push space hf-sync-branch:main --force --push-option=nobinary
