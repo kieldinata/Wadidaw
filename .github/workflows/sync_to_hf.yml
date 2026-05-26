@@ -3,7 +3,7 @@ name: Sync to Hugging Face Spaces
 on:
   push:
     branches:
-      - "**"
+      - '**'
   workflow_dispatch:
 
 jobs:
@@ -12,15 +12,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          lfs: true # <--- WAJIB TRUE agar GitHub Actions ikut mengunduh file biner LFS-mu
 
       - name: Push to HF
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
+          # 1. Atur identitas Git di server runner
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          
+          # 2. Hancurkan total folder .git bawaan (Menghapus seluruh history biner masa lalu)
+          rm -rf .git
+          
+          # 3. Inisialisasi Git baru dari nol (Kosong, suci, tanpa history gambar)
+          git init -b main
+          git add .
+          git commit -m "deploy: fresh dynamic build without binary history"
+          
+          # 4. Daftarkan remote dan paksa push ke Hugging Face
           git remote add space https://kieldinata:$HF_TOKEN@huggingface.co/spaces/kieldinata/Wadidaw
-          git checkout -b hf-sync-branch
-          # Push normal tanpa opsi aneh-aneh
-          git push space hf-sync-branch:main --force
+          git push space main --force
