@@ -3,9 +3,9 @@ name: Sync to Hugging Face Spaces
 on:
   push:
     branches:
-      - '**' # Memicu workflow di branch mana pun saat kamu melakukan push
+      - '**'
 
-  workflow_dispatch: # Memungkinkan kamu menjalankan workflow secara manual jika dibutuhkan
+  workflow_dispatch:
 
 jobs:
   sync-to-hub:
@@ -15,17 +15,27 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          lfs: true
+          lfs: false # Kita matikan LFS karena kita akan bersihkan binari secara lokal
 
       - name: Push to HF
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          # 1. Daftarkan remote Hugging Face Space Wadidaw
+          # 1. Daftarkan remote Hugging Face
           git remote add space https://kieldinata:$HF_TOKEN@huggingface.co/spaces/kieldinata/Wadidaw
           
-          # 2. Buat branch lokal sementara agar tidak memicu error proteksi penghapusan branch di HF
+          # 2. Buat branch lokal sementara
           git checkout -b hf-sync-branch
           
-          # 3. Push ke Hugging Face dengan opsi meloloskan gambar logo Wadidaw (.png)
-          git push space hf-sync-branch:main --force --push-option=nobinary
+          # 3. HAPUS file biner dari Git History pelacak Hugging Face agar tidak di-reject
+          #    (Tenang, file fisik gambarmu aman di repo GitHub, ini hanya menghapus dari track Git sementara)
+          git rm --cached src/main/webapp/Resources/wadidaw-logo-white.png || true
+          git rm --cached src/main/webapp/Resources/wadidaw-logo.png || true
+          
+          # 4. Commit perubahan "pembersihan" lokal ini
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git commit -m "chore: clear binaries for hf compliance" || true
+          
+          # 5. Push ke Hugging Face Space
+          git push space hf-sync-branch:main --force
