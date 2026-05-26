@@ -1,4 +1,5 @@
 package com.mlteam.wadidaw.controllers;
+
 import com.mlteam.wadidaw.entities.*;
 import com.mlteam.wadidaw.services.MediaServices;
 import jakarta.servlet.ServletException;
@@ -6,18 +7,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Servlet yang menangani permintaan untuk halaman utama (Home).
  * Berfungsi untuk mengambil data discovery film dan acara TV dari TMDB API.
  */
 @WebServlet(name = "HomeServlet", urlPatterns = {""})
 public class HomeServlet extends HttpServlet {
+
     /**
      * Menangani permintaan HTTP GET untuk memuat konten halaman utama.
      * Melakukan pengecekan API Key di session dan mengambil data media untuk ditampilkan.
@@ -28,10 +30,9 @@ public class HomeServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String TMDBKey = (String) session.getAttribute("TMDB_API_KEY");
-        if (TMDBKey == null) {
-            response.sendRedirect(request.getContextPath() + "/setup");
+        String TMDBKey = System.getenv("TMDB_API_KEY");
+        if (TMDBKey == null || TMDBKey.trim().isEmpty()) {
+            response.sendError(500, "TMDB_API_KEY missing in environment variables.");
             return;
         }
         try {
@@ -45,6 +46,7 @@ public class HomeServlet extends HttpServlet {
             response.sendError(500);
         }
     }
+
     /**
      * Mengambil daftar media dari endpoint TMDB yang ditentukan.
      * Mengonversi respon JSON menjadi list objek Media (Movies atau Shows).

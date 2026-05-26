@@ -32,7 +32,7 @@ public class SeasonServlet extends HttpServlet {
         String showId = request.getParameter("id");
         String seasonNumber = request.getParameter("season_number");
         HttpSession session = request.getSession();
-        String TMDBKey = (String) session.getAttribute("TMDB_API_KEY");
+        String TMDBKey = System.getenv(TMDB_API_KEY);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         JSONArray jsonArray = new JSONArray();
