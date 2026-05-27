@@ -1,4 +1,4 @@
-markdown_content_v2 = """---
+---
 title: Wadidaw
 emoji: 🎬
 colorFrom: blue
