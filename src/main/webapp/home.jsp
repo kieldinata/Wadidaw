@@ -167,7 +167,7 @@
 
 <div class="header-container">
     <a href="${pageContext.request.contextPath}/">
-        <img src="Resources/wadidaw-logo-white.png" alt="Wadidaw Logo" class="logo-wadidaw">
+        <img src="https://github.com/user-attachments/assets/59f4440a-a936-4364-b2a6-825c4f9021f9" alt="Wadidaw Logo" class="logo-wadidaw">
     </a>
 </div>
 
