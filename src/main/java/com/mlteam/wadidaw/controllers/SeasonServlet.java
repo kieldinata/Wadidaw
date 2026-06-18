@@ -9,7 +9,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -31,7 +30,6 @@ public class SeasonServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String showId = request.getParameter("id");
         String seasonNumber = request.getParameter("season_number");
-        HttpSession session = request.getSession();
         String TMDBKey = System.getenv("TMDB_API_KEY");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
