@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.mlteam.wadidaw.entities.Movies" %>
-
+<!DOCTYPE html>
 <html>
 <head>
     <title><%= ((Movies)request.getAttribute("movie")).getTitle() %></title>
@@ -12,7 +12,7 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
-            background: #020202;
+            background: #0b0b0b;
             overflow-x: hidden;
         }
 
@@ -105,8 +105,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-top: 25px;
-            padding: 15px 30px;
+            padding: 12px 25px;
             background: white;
             color: black;
             border: none;
@@ -114,26 +113,26 @@
             border-radius: 4px;
             font-size: 1.1rem;
             font-weight: bold;
+            margin-bottom: 40px;
             transition: 0.2s;
         }
 
         .btn-play:hover {
-            background: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.8);
         }
 
         .btn-back {
             position: fixed;
             top: 20px;
             left: 20px;
-            font-size: 24px;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             border: none;
             color: white;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             cursor: pointer;
-            z-index: 100;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -239,20 +238,17 @@
 </div>
 
 <script>
-    /* Membuka modal trailer tanpa mengotori history browser */
     function openTrailer() {
         const modal = document.getElementById("trailerModal");
         const frame = document.getElementById("trailerFrame");
         const trailerUrl = "https://www.youtube.com/embed/<%= movie.getTrailer_key() %>?autoplay=1";
 
-        // Menggunakan contentWindow.location.replace agar tidak masuk ke history stack
         frame.contentWindow.location.replace(trailerUrl);
 
         modal.style.display = "flex";
         document.body.style.overflow = "hidden";
     }
 
-    /* Menutup modal dan membersihkan iframe */
     function closeTrailer() {
         const modal = document.getElementById("trailerModal");
         const frame = document.getElementById("trailerFrame");

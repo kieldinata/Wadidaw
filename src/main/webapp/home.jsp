@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.mlteam.wadidaw.entities.Media" %>
-
+<!DOCTYPE html>
 <html>
 <head>
     <title>Wadidaw - Discover</title>
     <link rel="icon" type="image/png" href="Resources/wadidaw-logo-white.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { margin:0; background:#0b0b0b; color:#e5e5e5; font-family:Arial, sans-serif; overflow-x: hidden; }
+        body { margin:0; background:#0b0b0b; color:#e5e5e5; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
 
         .header-container {
             position: absolute;

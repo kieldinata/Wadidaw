@@ -4,21 +4,20 @@
 <%@ page import="com.mlteam.wadidaw.entities.Movies" %>
 <%@ page import="com.mlteam.wadidaw.entities.Shows" %>
 <%@ page import="java.net.URLEncoder" %>
-
+<!DOCTYPE html>
 <html>
 <head>
     <title>Wadidaw - Search</title>
     <link rel="icon" type="image/png" href="Resources/wadidaw-logo-white.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { margin:0; background:#0b0b0b; color:#e5e5e5; font-family:Arial, sans-serif; overflow-x: hidden; }
+        body { margin:0; background:#0b0b0b; color:#e5e5e5; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
 
-        /* Header & Logo Area disesuaikan dengan Home */
         .header-container {
             position: fixed;
             top: 25px;
             left: 40px;
-            z-index: 110; /* Di atas header background */
+            z-index: 110;
         }
 
         .logo-wadidaw {
@@ -31,7 +30,7 @@
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%); 
             padding: 20px 40px; 
             display: flex; 
-            justify-content: flex-end; /* Memberi ruang untuk logo di kiri */
+            justify-content: flex-end;
             align-items: center; 
             position: fixed; 
             top: 0; 
@@ -41,7 +40,6 @@
             transition: background 0.3s; 
         }
 
-        /* Search Box: Mengikuti style rounded rectangle mungil di header */
         .search-box input { 
             padding: 10px 20px; 
             border: 1px solid rgba(255, 255, 255, 0.2); 
@@ -59,7 +57,6 @@
             background: rgba(255,255,255,0.15);
         }
 
-        /* Hero Section */
         .hero { 
             height: 75vh; 
             background-size: cover; 
@@ -83,11 +80,10 @@
             text-shadow: 2px 2px 15px rgba(0,0,0,0.9); 
             max-width: 80%; 
             font-weight: bold; 
-            color: #ffffff; /* Sesuai home yang menggunakan teks putih */
+            color: #ffffff;
             letter-spacing: 2px;
         }
 
-        /* Movie Row & Cards */
         .movie-row { 
             display: flex; 
             overflow-x: auto; 
@@ -190,7 +186,6 @@
     if(mediaList != null && !mediaList.isEmpty()){ 
         for(Media m : mediaList){ 
             
-            // Logika penentuan URL berdasarkan mapping baru
             String detailUrl = (m instanceof Shows) ? "show" : "movie";
             String label = (m instanceof Shows) ? "TV Show" : "Movie";
 %>
@@ -215,7 +210,6 @@
 </div>
 
 <script>
-// Fungsi preview mengikuti hover kartu
 function previewHero(backdropPath, title) {
     const heroBanner = document.getElementById('hero-banner');
     const heroTitle = document.getElementById('hero-title');
@@ -225,7 +219,6 @@ function previewHero(backdropPath, title) {
     if (heroTitle) { heroTitle.innerText = title; }
 }
 
-// Efek scroll header
 window.addEventListener('scroll', () => {
     const header = document.getElementById('mainHeader');
     if (header) {
@@ -235,7 +228,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Sinkronisasi wheel scroll
 const el = document.getElementById('scrollRow');
 if(el) {
     el.addEventListener('wheel', (evt) => {

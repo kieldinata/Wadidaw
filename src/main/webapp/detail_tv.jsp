@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.mlteam.wadidaw.entities.*" %>
 <%@ page import="java.util.List" %>
-
+<!DOCTYPE html>
 <html>
 <head>
     <% Shows show = (Shows) request.getAttribute("show"); %>
@@ -190,17 +190,45 @@
         }
         .btn-play:hover { background: rgba(255,255,255,0.8); }
         .btn-back {
-            position: fixed; top: 20px; left: 20px; width: 45px; height: 45px;
-            border-radius: 50%; border: none; color: white; background: rgba(0,0,0,0.6);
-            cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            background: rgba(0,0,0,0.6);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn-back:hover { background: #e50914; }
         .modal {
-            display: none; position: fixed; z-index: 2000; inset: 0;
-            background: rgba(0,0,0,0.9); justify-content: center; align-items: center;
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
         }
-        .modal-content { width: 85%; max-width: 900px; aspect-ratio: 16/9; position: relative; }
-        .close { position: absolute; top: -45px; right: 0; font-size: 35px; cursor: pointer; color: white; }
+        .modal-content {
+            width: 85%;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+            position: relative;
+        }
+        .close {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            font-size: 35px;
+            cursor: pointer;
+            color: white;
+        }
         @media (max-width: 768px) {
             .content { padding: 40px 20px; }
             .info-grid { grid-template-columns: 1fr; }
